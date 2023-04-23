@@ -15,11 +15,20 @@ export default {
     name: "confirm",
     data() {
         return {
+            time: 2,
             image: undefined
         }
     },
     created() {
+        this.time = 2
         this.image = window.localStorage.getItem("img")
+        window.setInterval(() => {
+            this.time--;
+            if (this.time < 0) {
+                window.clearInterval(this.clock);
+                this.$router.push("/request")
+            }
+        }, 1000);
     }
 }
 </script>
