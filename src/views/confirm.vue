@@ -1,10 +1,8 @@
 <template>
     <div class="main">
         <div class="img">
+            <span style="display: block">image captured</span>
             <img :src="image" alt="image"/>
-        </div>
-        <div class="button">
-            <span style="display:block">image captured</span>
         </div>
     </div>
 
@@ -15,11 +13,21 @@ export default {
     name: "confirm",
     data() {
         return {
+            time: 2,
             image: undefined
         }
     },
     created() {
+        this.time = 2
         this.image = window.localStorage.getItem("img")
+
+        window.setInterval(() => {
+            this.time--;
+            if (this.time < 0) {
+                this.$router.push('/request')
+            }
+        }, 1300);
+
     }
 }
 </script>
@@ -46,11 +54,8 @@ export default {
     text-align: center;
 }
 
-img{
+img {
     width: 512px;
     height: 512px;
-}
-.button {
-    margin-top: 20px;
 }
 </style>
