@@ -1,0 +1,148 @@
+<template>
+    <div class="main">
+        <div>
+            <div class="img"><img src="../assets/time.png"/></div>
+            <div class="text">
+                <p>FROM THE SEEDS OF LIFE WE GROW</p>
+                <p>OUR PETALS UNFOLDING AS WE GO</p>
+                <p>A FLOWER'S BEAUTY, A FLEETING THING</p>
+                <p>A REMINDER OF LIFE'S FRAGILE WING</p>
+                <p></p>
+                <p style="margin-top: 10px">ANITA, THE CREATURE WE CREATE</p>
+                <p>HALF-HUMAN, HALF-FLOWER, A CELEBRATION OF FATE</p>
+                <p>A SYMBOL OF THE CYCLE OF LIFE</p>
+                <p>AND THE NEED TO EMBRACE IT, FREE FROM STRIFE</p>
+                <p></p>
+                <p style="margin-top: 10px">FOR THE SOCIAL CLOCK TICKS ON</p>
+                <p>A FORCE THAT OFTEN MAKES US FEEL ALONE</p>
+                <p>BUT IN ANITA, WE FIND CONNECTION</p>
+                <p>A COMMUNITY THAT SPANS ALL DIRECTIONS</p>
+                <p></p>
+                <p style="margin-top: 10px">WITH EACH PASSING MOMENT, WE BLOOM AND GROW</p>
+                <p>OUR TIME ON EARTH, A PRECIOUS WINDOW</p>
+                <p>SO LET US CHERISH EVERY AGE AND STAGE</p>
+                <p>AND EMBRACE THE BEAUTY OF LIFE'S FLEETING GAUGE.</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import request from "@/utils/request";
+import {v4 as uuidv4} from "uuid";
+
+export default {
+    name: "request",
+    data() {
+        return {
+            clock: undefined,
+            sdForm: {
+                strength: 0.5,
+                // 使用的模型ID
+                model_id: 'midjourney',
+                // 提示词
+                prompt: "Emma Watson as a powerful mysterious sorceress, casting lightning magic, detailed clothing, digital painting, hyperrealistic, fantasy, Surrealist, full body, by Stanley Artgerm Lau and Alphonse Mucha, artstation, highly detailed, sharp focus, sci-fi, stunningly beautiful, dystopian, iridescent gold",
+                //生成的图片数量
+                samples: 4,
+                width: 512,
+                seed: "-1",
+                height: "512",
+                track_id: uuidv4(),
+                num_inference_steps: "50",
+                // 密钥
+                key: "gCkuaB6u4CyjJUdp7zauoUiE4BiC2NW6aJAB3GEZz17pM466FWuEfrjbOxrR",
+                init_image: "https://d1okzptojspljx.cloudfront.net/generations/8589140601669473451.png"
+            },
+        }
+    },
+    created() {
+        this.request()
+    },
+    methods: {
+        getBase64() {
+            return window.localStorage.getItem("img")
+        },
+        request() {
+            // TODO 跳转到 request页面
+            this.loading = true
+            this.loading_text = "upload image ..."
+            request.post('/api/v3/base64_crop', {
+                "key": this.sdForm.key,
+                "image": this.getBase64(),
+                "crop": "false"
+            }).then(res => {
+                this.loading_text = 'From the seeds of life we grow Our petals unfolding as we go A flower\'s beauty, a fleeting thing A reminder of life\'s fragile wing  Anita, the creature we create Half-human, half-flower, a celebration of fate A symbol of the cycle of life And the need to embrace it, free from strife  For the social clock ticks on A force that often makes us feel alone But in Anita, we find connection A community that spans all directions  With each passing moment, we bloom and grow Our time on earth, a precious window So let us cherish every age and stage And embrace the beauty of life\'s fleeting gauge.'
+                this.sdForm.init_image = res.data.link
+                request.post("/api/v3/dreambooth/img2img", this.sdForm).then(res => {
+                    if (res.data.status === "success") {
+                        window.localStorage.setItem("images", JSON.stringify(res.data.output))
+                        this.$router.push('/result')
+                    } else if (res.data.status === "processing") {
+                        let id = res.data.id
+                        this.clock = window.setInterval(() => {
+                            request.post("/api/v3/dreambooth/fetch/" + id,{key:this.sdForm.key}).then(res => {
+                                if (res.data.status === "success") {
+                                    window.clearInterval(this.clock);
+                                    window.localStorage.setItem("images", JSON.stringify(res.data.output))
+                                    this.$router.push('/result')
+                                }
+                            })
+
+                        }, 1000);
+                    } else {
+                        this.$message.error("Connection timeout.......")
+                        this.$router.push("/")
+                    }
+                }).catch((e)=>{
+                    this.$message.error("Connection timeout.......")
+                    this.$router.push("/")
+                })
+            })
+        },
+
+
+    }
+}
+</script>
+
+<style scoped>
+.main {
+    width: 100%;
+    height: 100vh;
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+.img {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+img {
+    text-align: center;
+    width: 300px;
+    height: 300px;
+}
+
+.text {
+    font-family: 'Julius Sans One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+    color: #F5F5F5;
+
+}
+</style>
