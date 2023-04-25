@@ -4,6 +4,7 @@ module.exports = defineConfig({
     lintOnSave: false,
     devServer: {
         https: false,  // 是否https
+        port:8888,
         proxy: {
             '/api': {
                 target: 'https://stablediffusionapi.com',

@@ -32,6 +32,7 @@ import request from "@/utils/request";
 import {v4 as uuidv4} from "uuid";
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
     name: "request",
     data() {
         return {
@@ -99,7 +100,8 @@ export default {
                         this.$message.error("Connection timeout.......")
                         this.$router.push("/")
                     }
-                }).catch((e) => {
+                  // eslint-disable-next-line no-unused-vars
+                }).catch((err) => {
                     this.$message.error("Connection timeout.......")
                     this.$router.push("/")
                 })

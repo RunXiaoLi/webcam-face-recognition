@@ -19,10 +19,10 @@
 
 <script>
 import vueQr from 'vue-qr'
-import QRCode from 'qrcodejs2'
 import {download} from '@dimplesyj/util'
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
     name: "result",
     components: {
         vueQr
