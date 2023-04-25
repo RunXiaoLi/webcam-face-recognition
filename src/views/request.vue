@@ -39,11 +39,11 @@ export default {
             num: -1,
             clock: undefined,
             sdForm: {
-                strength: 0.5,
+                strength: 0.8,
                 // 使用的模型ID
-                model_id: 'midjourney',
+                model_id: 'anita',
                 // 提示词
-                prompt: "Emma Watson as a powerful mysterious sorceress, casting lightning magic, detailed clothing, digital painting, hyperrealistic, fantasy, Surrealist, full body, by Stanley Artgerm Lau and Alphonse Mucha, artstation, highly detailed, sharp focus, sci-fi, stunningly beautiful, dystopian, iridescent gold",
+                prompt: "best image of a creature named Anita, which combines flower and human's look.",
                 //生成的图片数量
                 samples: 4,
                 width: 512,
