@@ -39,7 +39,7 @@ export default {
       num: -1,
       clock: undefined,
       sdForm: {
-        denoising_strength: 0.5,
+        denoising_strength: 0.8,
         // 使用的模型ID
         model_id: 'midjourney',
         // 提示词
@@ -75,7 +75,7 @@ export default {
       this.sdForm.init_images.push(window.localStorage.getItem("img"))
       request.post("/sdapi/v1/img2img", this.sdForm).then(res => {
         let images = res.data.images
-        window.sessionStorage.setItem("images",JSON.stringify(images))
+        window.sessionStorage.setItem("images", JSON.stringify(images))
         this.$router.push('/result')
         // eslint-disable-next-line no-unused-vars
       }).catch((err) => {
