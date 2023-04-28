@@ -1,13 +1,6 @@
 <template xmlns="http://www.w3.org/1999/html">
-    <div>
-        <header>
-            <div class="main">
-            </div>
-            <div class="title">
-                <h1 @click="$router.push('/init')" style="color: #FFFFFF;text-align: center;cursor: pointer">Start</h1>
-            </div>
-        </header>
-
+    <div class="main">
+        <img @click="$router.push('/init')"  src="../assets/e971d4dbe2f89ee4ddf6ce32838c2c2.png" alt="">
     </div>
 </template>
 
@@ -20,57 +13,17 @@ export default {
 
 <style scoped>
 * {
+    background-color: #000000;
     padding: 0;
     margin: 0;
-    font-family: "楷体";
 }
-
-header {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?cs=srgb&dl=pexels-lisa-1083822.jpg&fm=jpg);
+.main{
+    width: 100%;
     height: 100vh;
-    background-size: cover;
-    background-position: center;
 }
-
-ul {
-    float: right;
-    list-style-type: none;
-    margin: 15px;
-}
-
-ul li {
-    display: inline-block;
-}
-
-ul li a {
-    text-decoration: none;
-    color: #fff;
-    padding: 5px 20px;
-    border: 1px solid transparent;
-    transition: .6s ease;
-    border-radius: 20px;
-}
-
-ul li a:hover {
-    background-color: #fff;
-    color: #000;
-}
-
-ul li.active a {
-    background-color: #fff;
-    color: #000;
-}
-
-.title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.title h1 {
-    color: #fff;
-    font-size: 70px;
-    font-family: Century Gothic;
+img{
+    cursor: pointer;
+    width: 100%;
+    height: 99vh;
 }
 </style>

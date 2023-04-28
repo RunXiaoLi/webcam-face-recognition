@@ -5,6 +5,7 @@ import init from '../views/init'
 import result from '../views/result.vue'
 import welcome from '../views/welcome.vue'
 import confirm from '../views/confirm.vue'
+import gif from '../views/gif.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const routes = [
     },
     {
         path: "/",
+        component: gif
+    },
+    {
+        path: "/welcome",
         component: welcome
     },
     {

@@ -80,8 +80,8 @@ export default {
         // eslint-disable-next-line no-unused-vars
       }).catch((err) => {
         console.log(err)
-        this.$message.error("Connection timeout.......")
-        this.$router.push("/")
+        // this.$message.error("Connection timeout.......")
+        // this.$router.push("/")
       })
     },
 
