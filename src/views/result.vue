@@ -135,8 +135,8 @@ img {
 }
 .exit{
     position: absolute;
-    width: 320px;
-    height: 320px;
+    width: 256px;
+    height: 256px;
     left: 50%;
     top: 85%;
     transform: translate(-50%, -50%);
