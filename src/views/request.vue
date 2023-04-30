@@ -35,11 +35,11 @@ export default {
     data() {
         return {
             prompt: [
-                "Emma Watson as a powerful mysterious sorceress",
-                "Rianna as a powerful mysterious sorceress",
-                "Beyonce as a powerful mysterious sorceress",
-                "Lady GAGA as a powerful mysterious sorceress",
-                "Johnny Depp as a powerful mysterious sorceress"
+                "Very Very Beautiful 3D Render of Emma Watson , cinematic hd highly detailed",
+                "Very Very Beautiful 3D Render of Rihanna , cinematic hd highly detailed",
+                "Very Very Beautiful 3D Render of Beyonce , cinematic hd highly detailed",
+                "Very Very Beautiful 3D Render of Lady GAGA , cinematic hd highly detailed",
+                "Very Very Beautiful 3D Render of Emma Stone , cinematic hd highly detailed"
             ],
             imageLoading: false,
             loading_text: "init",
