@@ -1,24 +1,33 @@
 <template>
     <div class="main">
         <div class="img-div">
-            <img @click="creatQrCode(item)" v-for="(item,index) in images" :key="index"
-                          :src="item"/>
+            <img @click="creatQrCode('data:image/png;base64,'+item)" v-for="(item,index) in images" :key="index"
+                 :src="'data:image/png;base64,'+item"/>
+        </div>
+        <div @click="$router.push('/')" class="exit">
+            <img src="../assets/exit.png" alt="" />
         </div>
         <el-dialog
                 width="340px"
                 :visible.sync="flag">
             <vue-qr v-if="imageUrl !== ''" :text="imageUrl"
                     :size="300"></vue-qr>
-            <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="$router.push('/')">Return to the welcome page</el-button>
-            </span>
         </el-dialog>
     </div>
 </template>
 
 <script>
 import vueQr from 'vue-qr'
+import OSS from 'ali-oss';
+import {v4 as uuidv4} from "uuid";
 
+// 配置阿里云 OSS 访问密钥和 Bucket 地址
+const client = new OSS({
+    region: 'oss-cn-hongkong',
+    accessKeyId: 'LTAI5tGXJjPFqwm7Kck8VopQ',
+    accessKeySecret: 'qpiC2x5s2SJEXDIqh0Tb0QTlnkymFC',
+    bucket: 'webcam-ace-recognition',
+});
 export default {
     // eslint-disable-next-line vue/multi-word-component-names
     name: "result",
@@ -37,9 +46,10 @@ export default {
     },
     methods: {
         creatQrCode(item) {
-            this.imageUrl = item
-            this.flag = true
-            this.handleDownloadQrIMg(item)
+
+            this.uploadImage(item)
+            this.handleDownloadQrIMg(item.split(',')[1])
+
         },
         //qrBase64是后台传回来的base64数据
         handleDownloadQrIMg(qrBase64) {
@@ -62,6 +72,33 @@ export default {
                 a.setAttribute('download', 'chart-download')
                 a.click()
             }
+        },
+        // 将 Base64 图片转换为 Blob 对象
+        // 将 base64 格式的图片转换为 Blob 格式
+        dataURItoBlob(base64Str) {
+            console.log(base64Str)
+            const arr = base64Str.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], {type: mime});
+        },
+        // 上传图片
+        uploadImage(base64Data) {
+
+            console.log(base64Data)
+            const blobData = this.dataURItoBlob(base64Data);
+            return client.put(uuidv4()+".jpg", blobData).then((res) => {
+                this.flag = true
+                this.imageUrl = res.url
+                console.log(res)
+            }).catch((err) => {
+
+            });
         }
     }
 }
@@ -85,24 +122,31 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width:700px;
+    width: 700px;
 }
-
-
 
 
 img {
     width: 300px;
     height: 300px;
-    padding:10px;
+    padding: 10px;
     cursor: pointer;
     text-align: center;
 }
-img:nth-child(odd) {
-  margin-right: 0;
+.exit{
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    left: 50%;
+    top: 85%;
+    transform: translate(-50%, -50%);
 }
 
-img:nth-child(even) {
-  margin-left: 0;
-}
+/*img:nth-child(odd) {*/
+/*    margin-right: 0;*/
+/*}*/
+
+/*img:nth-child(even) {*/
+/*    margin-left: 0;*/
+/*}*/
 </style>

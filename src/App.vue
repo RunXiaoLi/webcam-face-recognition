@@ -16,6 +16,15 @@ export default {
 </script>
 
 <style>
+@font-face  {
+    font-family: 'Lack-Line-Regular';
+    src: url("assets/font/Lack-Line-Regular.otf") format('truetype');
+}
+
+@font-face  {
+    font-family: 'Lack-Italic';
+    src: url("assets/font/Lack-Italic.otf") format('truetype');
+}
 * {
     margin: 0;
     padding: 0;

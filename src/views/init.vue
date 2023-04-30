@@ -136,7 +136,7 @@ export default {
                 // this.context.lineWidth = 2
                 // this.isFlag && results.forEach((item) => {
                 //     this.context.strokeRect(item.alignedRect._box._x, item.alignedRect._box._y, item.alignedRect._box._width, item.alignedRect._box._height)
-                // })
+                // })g
                 if (!this.flag) {
                     this.time = 3
                     this.flag = true
@@ -167,9 +167,18 @@ export default {
             // 停止摄像头成像
             this.video.srcObject.getTracks()[0].stop()
             this.video.pause()
+            this.picture = canvas
             if (canvas) {
                 window.localStorage.setItem("img", canvas)
-                // this.$router.push('/confirm')
+                let time = 2;
+                let temp = window.setInterval(() => {
+                    time--;
+                    if (time < 0) {
+                        window.clearInterval(temp);
+                        this.$router.push('/request')
+                    }
+                }, 1600);
+
             } else {
                 console.log('canvas生成失败')
             }
@@ -186,6 +195,7 @@ export default {
 }
 
 .time {
+    font-family: Lack-Line-Regular,serif;
     position: absolute;
     top: -20%;
     left: 50%;

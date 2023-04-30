@@ -7,7 +7,7 @@ module.exports = defineConfig({
         port:8888,
         proxy: {
             '/api': {
-                target: 'http://region-9.seetacloud.com:54421',
+                target: 'http://region-9.seetacloud.com:40695/',
                 changeOrigin: true, // 是否跨域
                 ws: false, // 是否支持 websocket
                 pathRewrite: { // 可以理解为一个重定向或者重新赋值的功能
