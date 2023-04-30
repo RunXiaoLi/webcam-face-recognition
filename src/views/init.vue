@@ -202,7 +202,7 @@ export default {
     transform: translate(-50%, -50%);
     display: block;
     font-weight: 400;
-    font-size: 150px;
+    font-size: 120px;
     line-height: 180px;
     color: #FFFFFF;
 }
