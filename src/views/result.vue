@@ -127,8 +127,8 @@ export default {
 
 
 img {
-    width: 300px;
-    height: 300px;
+    width: 256px;
+    height: 256px;
     padding: 10px;
     cursor: pointer;
     text-align: center;
