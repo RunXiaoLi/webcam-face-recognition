@@ -1,9 +1,9 @@
 <template>
     <div class="init">
-        <div class="videoImage" ref="faceBox">
+        <div class="videoImage" v-loading="imageLoading" ref="faceBox">
             <span class="time" v-if="time > 0">{{ time }}</span>
             <video ref="video" style="display: none;"></video>
-            <canvas ref="canvas" width="512" height="512" class="canvas-cls" v-show="videoShow"></canvas>
+            <canvas ref="canvas" width="342" height="342" class="canvas-cls" v-show="videoShow"></canvas>
             <img ref="image" :src="picture" alt="" v-show="pictureShow">
         </div>
     </div>
@@ -17,7 +17,6 @@ export default {
     name: "init",
     data() {
         return {
-            loading_text: "init",
             loading: true,
             flag: false,
             time: 0,
@@ -80,7 +79,7 @@ export default {
             this.videoShow = true
             this.pictureShow = false
             this.cameraOptions()
-            this.$message.success("摄像头已打开")
+            //this.$message.success("摄像头已打开")
         },
         /**
          * 使用摄像头
@@ -94,8 +93,8 @@ export default {
             });
             let constraints = {
                 video: {
-                    width: 512,
-                    height: 512
+                    width: 342,
+                    height: 342
                 }
             }
             // 如果不是通过loacalhost或者通过https访问会将报错捕获并提示
@@ -128,7 +127,7 @@ export default {
          */
         async recognizeFace() {
             if (this.video.paused) return clearTimeout(this.timeout);
-            this.canvas.getContext('2d', {willReadFrequently: true}).drawImage(this.video, 0, 0, 512, 512);
+            this.canvas.getContext('2d', {willReadFrequently: true}).drawImage(this.video, 0, 0, 342, 342);
             const results = await faceApi.detectAllFaces(this.canvas, this.options).withFaceLandmarks();
             if (results.length > 0) {
                 // this.context = this.canvas.getContext("2d");
@@ -169,6 +168,7 @@ export default {
             this.video.pause()
             this.picture = canvas
             if (canvas) {
+                this.imageLoading = true
                 window.localStorage.setItem("img", canvas)
                 let time = 2;
                 let temp = window.setInterval(() => {
@@ -195,19 +195,20 @@ export default {
 }
 
 .time {
-    font-family: Lack-Line-Regular,serif;
+    font-family: Lack-Line-Regular, serif;
     position: absolute;
-    top: -20%;
+    top: -30%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: block;
     font-weight: 400;
-    font-size: 120px;
+    font-size: 158px;
     line-height: 180px;
     color: #FFFFFF;
 }
 
-.videoImage{
+.videoImage {
+    top: -20px;
     position: relative;
 }
 

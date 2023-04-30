@@ -34,6 +34,16 @@ export default {
     name: "request",
     data() {
         return {
+            prompt: [
+                "Emma Watson as a powerful mysterious sorceress",
+                "Rianna as a powerful mysterious sorceress",
+                "Beyonce as a powerful mysterious sorceress",
+                "Lady GAGA as a powerful mysterious sorceress",
+                "Johnny Depp as a powerful mysterious sorceress"
+            ],
+            imageLoading: false,
+            loading_text: "init",
+
             percent: 0,
             circumference: 339.292,
             loading: true,
@@ -43,9 +53,8 @@ export default {
             sdForm: {
                 denoising_strength: 0.8,
                 // 使用的模型ID
-                model_id: 'midjourney',
                 // 提示词
-                prompt: "Emma Watson as a powerful mysterious sorceress, casting lightning magic, detailed clothing, digital painting, hyperrealistic, fantasy, Surrealist, full body, by Stanley Artgerm Lau and Alphonse Mucha, artstation, highly detailed, sharp focus, sci-fi, stunningly beautiful, dystopian, iridescent gold",
+                prompt: "",
                 //生成的图片数量
                 batch_size: 4,
                 width: 512,
@@ -89,6 +98,7 @@ export default {
             this.loading = true
             this.loading_text = "upload image ..."
             this.sdForm.init_images.push(window.localStorage.getItem("img"))
+            this.sdForm.prompt = this.prompt[Math.floor(Math.random() * 5) + 1]
             request.post("/sdapi/v1/img2img", this.sdForm).then(res => {
                 let images = res.data.images
                 window.sessionStorage.setItem("images", JSON.stringify(images))

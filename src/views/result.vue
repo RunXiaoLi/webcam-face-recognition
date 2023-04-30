@@ -4,7 +4,7 @@
             <img @click="creatQrCode('data:image/png;base64,'+item)" v-for="(item,index) in images" :key="index"
                  :src="'data:image/png;base64,'+item"/>
         </div>
-        <div @click="$router.push('/')" class="exit">
+        <div v-show="isShow" @click="$router.push('/')" class="exit">
             <img src="../assets/exit.png" alt="" />
         </div>
         <el-dialog
@@ -36,6 +36,7 @@ export default {
     },
     data() {
         return {
+            isShow:false,
             flag: false,
             images: [],
             imageUrl: ''
@@ -95,7 +96,8 @@ export default {
             return client.put(uuidv4()+".jpg", blobData).then((res) => {
                 this.flag = true
                 this.imageUrl = res.url
-                console.log(res)
+                this.isShow = true
+                // eslint-disable-next-line no-unused-vars
             }).catch((err) => {
 
             });
@@ -122,30 +124,35 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 700px;
+    position: relative;
+    right: 35px;
+    top: -30px;
+    /*width: 900px;*/
 }
 
 
 img {
-    width: 256px;
-    height: 256px;
+    width: 267px;
+    height: 267px;
     padding: 10px;
     cursor: pointer;
     text-align: center;
 }
 .exit{
     position: absolute;
-    width: 256px;
-    height: 256px;
     left: 50%;
-    top: 85%;
+    top: 86%;
     transform: translate(-50%, -50%);
+}
+
+.exit img{
+    width: 393px;
+    height: 297px;
 }
 
 /*img:nth-child(odd) {*/
 /*    margin-right: 0;*/
 /*}*/
-
 /*img:nth-child(even) {*/
 /*    margin-left: 0;*/
 /*}*/
