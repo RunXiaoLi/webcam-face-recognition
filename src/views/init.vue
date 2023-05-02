@@ -79,7 +79,7 @@ export default {
             this.videoShow = true
             this.pictureShow = false
             this.cameraOptions()
-            //this.$message.success("摄像头已打开")
+            this.$message.success("Detecting face")
         },
         /**
          * 使用摄像头
@@ -140,7 +140,7 @@ export default {
                     this.time = 3
                     this.flag = true
                     this.getCountdown()
-                    this.$message.success(`检查到人脸${this.time}s开始拍照`)
+                    this.$message.success(`Stay still for${this.time}s`)
                 }
             } else {
                 this.time = 3
