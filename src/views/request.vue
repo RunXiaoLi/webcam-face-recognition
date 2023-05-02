@@ -51,7 +51,7 @@ export default {
             num: -1,
             clock: undefined,
             sdForm: {
-                denoising_strength: 0.8,
+                denoising_strength: 0.65,
                 // 使用的模型ID
                 // 提示词
                 //prompt: "",
@@ -61,7 +61,9 @@ export default {
                 seed: "-1",
                 height: "512",
                 track_id: uuidv4(),
-                num_inference_steps: "50",
+                cfg_scale: 10,
+                restore_faces: true,
+                num_inference_steps: "60",
                 init_images: []
             },
         }
