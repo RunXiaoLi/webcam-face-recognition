@@ -35,11 +35,11 @@ export default {
     data() {
         return {
             prompt: [
-                "Very Very Beautiful 3D Render of Emma Watson , cinematic hd highly detailed",
-                "Very Very Beautiful 3D Render of Rihanna , cinematic hd highly detailed",
-                "Very Very Beautiful 3D Render of Beyonce , cinematic hd highly detailed",
-                "Very Very Beautiful 3D Render of Lady GAGA , cinematic hd highly detailed",
-                "Very Very Beautiful 3D Render of Emma Stone , cinematic hd highly detailed"
+                "Very Very Beautiful modern Impressionism Painting of a NIANTAAXZ with background a fractal garden and flowers by Pablo Picasso , octane render Blur , Greyscale",
+                "Very Very Beautiful modern Dadaism Painting of a Unisex NIANTAAXZ with background a fractal garden and flowers by Andy Warhol , octane render Blur, Black and white",
+                "Very Very Beautiful modern Drip Painting of a Unisex NIANTAAXZ with background a fractal garden and flowers by Pablo Picasso , octane render Blur, colorful",
+                "Very Very Beautiful modern Expressionism Painting of a Unisex NIANTAAXZ with background a fractal garden and flowers by Georgia O'Keeffe , octane render Blur, Greyscale",
+                "Good Looking modern Abstract Painting of a NIANTAAXZ with background a fractal garden by Édouard Manet , octane render, Greyscale"
             ],
             imageLoading: false,
             loading_text: "init",
@@ -54,7 +54,7 @@ export default {
                 denoising_strength: 0.8,
                 // 使用的模型ID
                 // 提示词
-                prompt: "",
+                //prompt: "",
                 //生成的图片数量
                 batch_size: 4,
                 width: 512,
@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 .main {
-    background-image: url("../assets/social_clock_no_loading_BG.png");
+    background-image: url("../assets/clockclock.gif");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
