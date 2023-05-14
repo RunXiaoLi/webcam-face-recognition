@@ -63,7 +63,7 @@ export default {
                 track_id: uuidv4(),
                 cfg_scale: 10,
                 restore_faces: true,
-                num_inference_steps: "60",
+                num_inference_steps: "55",
                 init_images: []
             },
         }
